@@ -1,0 +1,160 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <wchar.h>
+#include <locale.h>
+#include <urlmon.h>
+#include <windows.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+
+#define MAX_BUFFER_SIZE 1024
+
+void showNews() {
+    printf("안전가옥으로 이동해야 한다면 아래의 '보유안함'에서 이동계획 수립에 도움을 받으십시오.\n");
+   
+}
+int bug_io(int bug);
+int select_menu(int ip);
+int main(void) {
+	int cac, news, gps,ip;
+	puts("-=재난 대응 소프트웨어=- \n제작: adct이지성\n\n\n============================\n============================\n대피계획 생성: 1 \n비상 연락망: 2 \n생존 메모장: 3\n재난대비 체크리스트: 4\n============================");
+	printf("메뉴 선택>>>");
+	scanf("%d",&ip);
+	cac=select_menu(ip);
+	if (cac==4)
+	{
+		puts("-=[재난대비 체크리스트]=-");
+		printf("1.식량\n2.멀티툴\n3.의료키트\n4.정수장비, 물\n5.손전등\n6.방독면\n7.라디오\n8.보온장비\n9.보조배터리\n10.안전헬멧\n");
+	}
+	else if (cac==3)
+	{
+		puts("-=[생존 메모장]=-");
+		FILE *fp;//fp 파일포인터.
+		int a,b,c;
+		printf("식량(x일치) , 식수(x일치), 생존날짜  입력>>>");
+		scanf("%d%d%d",&a,&b,&c);
+		printf("\n메모입력>>>");
+		char d[200];
+		scanf("%s",&d);
+		fp = fopen("C:\\your computer folder", "at"); 
+		if (fp == NULL) 
+		{
+			printf("실패 - 종료\n");
+			return 1;
+		}
+		fprintf(fp,"."); 
+		fprintf(fp,"\n\n------------------------------------------"); 
+		fprintf(fp,"\nmemo: %s",d);
+		fprintf(fp,"\nfood:%d / water:%d / survived %d\n\n",a,b,c);
+		if (a<=7 && b<=3)
+		{
+			fprintf(fp,"\n[you need to find food, water!!]\n");
+		}
+		fclose(fp);
+		printf("완료\n");
+		
+	}
+	else if (cac==2)
+	{
+		puts("-=[비상 연락망]=-");
+		FILE *fp;
+		printf("가족 인원수입력>>>");
+		int f_n,i,tele,j;
+		scanf("%d",&f_n);
+		for (i=1;i<=f_n;i++)
+		{
+			printf("\n%d번 전화번호",i);
+			scanf("%d",&tele);
+			fp = fopen("C:\\your computer folder", "at"); 
+			if (fp == NULL) 
+			{
+				printf("실패 - 종료\n");
+				return 1;
+			}
+			fprintf(fp,"\n0%d\n",tele); 
+			
+		}	
+		
+	}
+	else if (cac==1)
+	{
+	puts("-=[대피계획 생성]=-");
+	printf("안전가옥 보유여부:\n");
+    printf("보유함: 1\n");
+    printf("보유안함: 2\n");
+
+    int choice;
+    scanf("%d", &choice);
+	switch (choice) 
+	{
+        case 1:
+            showNews();  
+            break;
+        case 2:
+            printf("정부에 지정된 대피소로 이동 or 재난구역 탈출: 1  \n집에서 대기: 2\n숫자 입력>>>");
+            int bug,ans;
+            scanf("%d",&bug);
+            printf("00,,,,,%d",bug);
+            ans=bug_io(bug);
+            if (ans==1)
+			{
+            	puts("\n========[1번 선택]=========\n");   	
+			}
+            break;
+        default:
+            printf("Invalid choice\n");
+            break;
+    }
+		
+			
+	}
+	return 0;
+}
+
+
+
+
+
+int bug_io(int bug)
+{
+	if (bug==1)
+	{
+		printf("대피소 까지 이동거리(km) , 식량(x일 치) 입력>>>");
+		int q1,q2;
+		scanf("%d%d",&q1,&q2);
+		if(q1>=5 && q2>=3)
+		{
+			printf("성인남성은 평균적으로 1km을 걸을때 60칼로리를 소비합니다.\n여성의 경우 50칼로리를 소비합니다. ");
+			printf("\n이동해야 하는 거리: %d, 식량이 %d일치(약%d칼로리)보유하고 있습니다. ",q1,q2,2000*q2);
+			int kall= q1*55;
+			printf("이동하며 소모하게되는 칼로리는 %d 입니다",kall); 
+			puts("해당 정보를 통해 식량 보유량에 따른 이동경로를 고려할 수있습니다. ");
+		}
+			
+	}
+	else if (bug==2)
+	{
+		printf("지속적으로 tv또는 라디오 청취를 통해 사태에 대한 정보를 수집하십시오.");
+		printf("\n프로그램의 생존 메모장 기능을 활용하면 미래 계획을 준비하는데 도움이 될 수있습니다.");
+	} 
+	int result_ans= bug;	
+	return result_ans;
+	
+}
+int select_menu(int ip)
+{
+	int res= ip+0;
+	return res;
+}
+
+
+
+
+
+
+
+
+
+
+
